@@ -1,11 +1,11 @@
 {
   "name": "react-native-wisebacksdk-module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Wiseback SDK for ReactNative",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index.tsx",
+  "react-native": "src/index",
   "source": "src/index",
   "files": [
     "src",
@@ -29,11 +29,12 @@
   "scripts": {
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "prepack": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
     "bootstrap": "yarn example && yarn install && yarn example pods",
+    "prepare": "bob build",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
   },
   "keywords": [
@@ -41,19 +42,23 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/wisebackdev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wisebackdev/wisebacksdk-reactnative"
+  },
   "author": "Ali Varli <ali.varli@wiseback.com> (https://www.wiseback.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wisebackdev/issues"
+    "url": "https://github.com/wisebackdev/wisebacksdk-reactnative/issues"
   },
-  "homepage": "https://github.com/wisebackdev#readme",
+  "homepage": "https://github.com/wisebackdev/wisebacksdk-reactnative#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.2.2",
+    "@react-native-community/bob": "^0.17.1",
     "@react-native-community/eslint-config": "^3.0.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
@@ -156,5 +161,13 @@
     "@react-native-async-storage/async-storage": "^1.18.2",
     "react-native-uuid": "^2.0.1",
     "react-native-webview": "^13.2.2"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": ["module", "typescript"]
   }
 }
