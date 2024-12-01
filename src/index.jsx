@@ -82,6 +82,7 @@ const WiseView = (props) => {
                       const platformstr = Platform.OS === 'ios' ? 'iOS_SDK' : 'Android_SDK';
                       urlstr += "?ref=" + platformstr //call from ios/android SDK
                       if (props.closeButton) urlstr += "&closebtn=1";
+                      if (props.eventParams.resultData) urlstr += "&rd=1"; //return form results
             
                       if (json.result.params.delay) {
                         const timeout = setTimeout(() => {
@@ -159,9 +160,21 @@ const WiseView = (props) => {
       }
       
       function onMessage(data) {
-        if (data.nativeEvent.data == "closeForm") {
+        let eventMessage = "";
+
+        if (data.nativeEvent.data.startsWith("{")) {
+          const jObject = JSON.parse(data.nativeEvent.data);
+          if (jObject.eventName == "formResult") {
+            props.eventHandler("FormResult", jObject);
+            eventMessage = "formResult";
+          }
+        } else {
+          eventMessage = data.nativeEvent.data;
+        }
+
+        if (eventMessage == "closeForm") {
           closeForm();
-        } else if (data.nativeEvent.data == "formSubmitted") {
+        } else if (eventMessage == "formSubmitted" || eventMessage == "formResult") {
           props.eventHandler("FormSubmitted");
           
           if (_autoCloseForm.current == true) {
