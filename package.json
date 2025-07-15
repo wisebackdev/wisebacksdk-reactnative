@@ -1,6 +1,6 @@
 {
   "name": "react-native-wisebacksdk-module",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Wiseback SDK for ReactNative",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -72,8 +72,8 @@
     "jest": "^28.1.1",
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
-    "react": "18.2.0",
-    "react-native": "0.72.0",
+    "react": "19.1.0",
+    "react-native": "0.80.0",
     "react-native-builder-bob": "^0.20.4",
     "release-it": "^15.0.0",
     "typescript": "^4.5.2"
@@ -82,8 +82,11 @@
     "@types/react": "17.0.21"
   },
   "peerDependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-uuid": "^2.0.1",
+    "react-native-webview": "^13.15.0"
   },
   "engines": {
     "node": ">= 16.0.0"
@@ -157,17 +160,15 @@
       "typescript"
     ]
   },
-  "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.18.2",
-    "react-native-uuid": "^2.0.1",
-    "react-native-webview": "^13.2.2"
-  },
   "directories": {
     "example": "example"
   },
   "@react-native-community/bob": {
     "source": "src",
     "output": "lib",
-    "targets": ["module", "typescript"]
+    "targets": [
+      "module",
+      "typescript"
+    ]
   }
 }
