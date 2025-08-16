@@ -43,6 +43,7 @@ const WiseView = (props) => {
         if (props.eventParams) {
           if (_sdkDisabled.current) {
             console.log("SDK is disabled");
+            props.eventHandler("EventError", "disableSDK");
             return;
           }
 
@@ -98,6 +99,7 @@ const WiseView = (props) => {
                     case "disableSDK":
                       _sdkDisabled.current = true;
                       console.log("SDK disabled");
+                      props.eventHandler("EventError", "disableSDK");
                       if (json.result.params.check_interval) {
                         const timeout = setTimeout(() => {
                           _sdkDisabled.current = false;
@@ -108,21 +110,27 @@ const WiseView = (props) => {
                       break;
                     case "frequencyLimit":
                       console.log("Frequency limit exceeded")
+                      props.eventHandler("EventError", action);
                       break;
                     case "frequencyLimitForEventGroup":
                       console.log("Rule limit exceeded");
+                      props.eventHandler("EventError", action);
                       break;
                     case "impressionLimit":
                       console.log("Impression limit exceeded");
+                      props.eventHandler("EventError", action);
                       break;
                     case "disableEvent":
                       console.log("Event disabled");
+                      props.eventHandler("EventError", action);
                       break;
                     case "eventNotDefined":
                       console.log("Event not defined");
+                      props.eventHandler("EventError", action);
                       break;
                     default:
                       console.log("Action not defined: " + action);
+                      props.eventHandler("EventError", action);
                       break;
                   }
                 } else {
